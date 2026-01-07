@@ -7,7 +7,7 @@ function required(name: string): string {
   return v;
 }
 
-const clientUrlsRaw = process.env.CLIENT_URLS || process.env.CLIENT_URL || "http://localhost:5173";
+const clientUrlsRaw = process.env.CLIENT_URLS || process.env.CLIENT_URL* || "*";
 const clientUrls = clientUrlsRaw
   .split(",")
   .map((value) => value.trim())
@@ -17,7 +17,7 @@ export const env = {
   PORT: parseInt(process.env.PORT || "4000", 10),
   CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
   CLIENT_URLS: clientUrls,
-  ALLOW_ANY_ORIGIN: clientUrlsRaw === "*",
+  ALLOW_ANY_ORIGIN: clientUrlsRaw === "*",*
   DATABASE_URL: required("DATABASE_URL"),
   JWT_SECRET: required("JWT_SECRET"),
   JWT_REFRESH_SECRET: required("JWT_REFRESH_SECRET"),
