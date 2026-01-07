@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { bootstrapMe } from "../app/auth";
 import { currentUser } from "../app/auth";
 import { api } from "../app/api";
+import { API_BASE_URL } from "../app/env";
 import { Toast } from "./Toast";
 
 export function Layout() {
@@ -60,7 +61,7 @@ export function Layout() {
                 <NavLink className="btn secondary" to="/loans">Huazimet</NavLink>
                 {me.role === "admin" ? <NavLink className="btn secondary" to="/admin">Administrim</NavLink> : null}
               </div>
-              <span className="kbd">API: {import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api"}</span>
+              <span className="kbd">API: {API_BASE_URL}</span>
             </div>
           </div>
         ) : null}
