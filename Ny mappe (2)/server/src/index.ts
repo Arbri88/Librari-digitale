@@ -13,7 +13,18 @@ import { reportsRouter } from "./routes/reports.js";
 
 const app = express();
 app.use(helmet());
-app.use(cors({ origin: env.CLIENT_URL, credentials: false }));
+app.use(
+  cors({
+    origin: env.ALLOW_ANY_ORIGIN
+      ? true
+      : (origin, callback) => {
+          if (!origin) return callback(null, true);
+          if (env.CLIENT_URLS.includes(origin)) return callback(null, true);
+          return callback(new Error("Not allowed by CORS"));
+        },
+    credentials: false,
+  })
+);
 app.use(express.json({ limit: "1mb" }));
 
 app.use(
