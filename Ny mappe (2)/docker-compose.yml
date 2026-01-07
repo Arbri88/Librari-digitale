@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lms
+    ports:
+      # Use 5433 on host to avoid conflicts with any local PostgreSQL already running on 5432
+      - "5433:5432"
+    volumes:
+      - lms_db:/var/lib/postgresql/data
+      # Auto-run schema + seed the FIRST time the volume is created.
+      # If you already have an old volume, run: docker compose down -v
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+volumes:
+  lms_db:

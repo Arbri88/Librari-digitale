@@ -1,0 +1,22 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+function required(name: string): string {
+  const v = process.env[name];
+  if (!v) throw new Error(`Missing env var: ${name}`);
+  return v;
+}
+
+export const env = {
+  PORT: parseInt(process.env.PORT || "4000", 10),
+  CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
+  DATABASE_URL: required("DATABASE_URL"),
+  JWT_SECRET: required("JWT_SECRET"),
+  JWT_REFRESH_SECRET: required("JWT_REFRESH_SECRET"),
+  NODE_ENV: process.env.NODE_ENV || "development",
+  RATE_LIMIT_LOGIN_WINDOW_MS: parseInt(process.env.RATE_LIMIT_LOGIN_WINDOW_MS || String(60 * 60 * 1000), 10),
+  RATE_LIMIT_LOGIN_MAX: parseInt(
+    process.env.RATE_LIMIT_LOGIN_MAX || (process.env.NODE_ENV === "production" ? "10" : "100"),
+    10
+  ),
+};
