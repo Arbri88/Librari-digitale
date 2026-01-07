@@ -7,11 +7,10 @@ function required(name: string): string {
   return v;
 }
 
-const clientUrlsRaw = process.env.CLIENT_URLS || process.env.CLIENT_URL* || "*";
+cconst clientUrlsRaw = process.env.CLIENT_URLS || process.env.CLIENT_URL || "*";
 const clientUrls = clientUrlsRaw
   .split(",")
-  .map((value) => value.trim())
-  .filter(Boolean);
+  .map((value) => value.trim())  .filter(Boolean);
 
 export const env = {
   PORT: parseInt(process.env.PORT || "4000", 10),
